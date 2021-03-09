@@ -1,0 +1,1 @@
+Scaffold-DbContext -Connection "Server=(local);Database=AfricanEchoesDB;Trusted_Connection=True;MultipleActiveResultSets=true" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -context AfrikanEchoesDbContext -force

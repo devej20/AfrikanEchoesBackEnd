@@ -1,0 +1,148 @@
+﻿@model AfrikanEchoes.Entities.Book
+
+@{
+    ViewData["Title"] = "Details";
+    var coverImagePath = "~/uploads/images/" + (@Model.CoverImagePath ?? "placeholder_image.png");
+    var audioPath = "";
+    var audio = @Model.Audio;
+
+    if (audio != null)
+    {
+        audioPath = "~/uploads/audios/" + (@audio.FilePath ?? "placeholder_audio.mp3");
+    }
+    else
+    {
+        audioPath = "~/uploads/audios/placeholder_audio.mp3";
+    }
+
+}
+
+<h3>Details</h3>
+
+<div class="row">
+    <div class="col-xl-6">
+        <!--begin::Portlet-->
+        <div class="m-portlet">
+            <div class="m-portlet__head">
+                <div class="m-portlet__head-caption">
+                    <div class="m-portlet__head-title">
+                        <span class="m-portlet__head-icon m--hide">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h2 class="m-portlet__head-text">
+                            Book
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Form-->
+            <form class="m-form">
+                <div class="m-portlet__body">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            Cover Image
+                        </dt>
+                        <dd>
+                            <img src="@Url.Content(coverImagePath)" width="200" />
+                        </dd>
+                        <dt>
+                            Audio
+                        </dt>
+                        <dd>
+                            <audio controls>
+                                <source src="@Url.Content(@audioPath)" type="audio/mp3">
+                            </audio>
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ReleaseDate)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.ReleaseDate)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Author)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Author.FirstName) @Html.DisplayFor(model => model.Author.LastName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Category)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Category.Name)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Narrator)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Narrator.FirstName) @Html.DisplayFor(model => model.Narrator.LastName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Publisher)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Publisher.Name)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Language)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Language.Name)
+                        </dd>
+                        <dt>
+                            Images
+                        </dt>
+                        <dd>
+                            @foreach (var image in @Model.BookImages)
+                            {
+                                var imagePath = "~/uploads/images/" + (image.ImagePath ?? "placeholder_image.png");
+                                <img src="@Url.Content(imagePath)" width="150" />
+                            }
+
+                        </dd>
+                    </dl>
+                </div>
+                <div class="m-portlet__foot m-portlet__foot--fit">
+                    <div class="m-form__actions m-form__actions">
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                            <a asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!--end::Form-->
+        </div>
+        <!--end::Portlet-->
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+
+        $("audio").on("play", function () {
+            $("audio").not(this).each(function (index, audio) {
+                audio.pause();
+            });
+
+        });
+    });
+
+</script>
+
+

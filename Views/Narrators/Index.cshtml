@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AfrikanEchoes.Entities.Narrator>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!--begin::Card-->
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title">
+            <h3 class="card-label">
+                Narrators
+                <span class="d-block text-muted pt-2 font-size-sm">List of Narrators</span>
+            </h3>
+        </div>
+        <div class="card-toolbar">
+            <!--begin::Button-->
+            <a asp-action="Create" class="btn btn-primary font-weight-bolder">
+                <i class="la la-plus"></i>New Narrator
+            </a>
+            <!--end::Button-->
+        </div>
+    </div>
+    <div class="card-body table-responsive">
+        <!--begin: Datatable-->
+        <table class="table table-separate table-head-custom table-hover table-striped" id="datatable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="font-weight-bold mr-2">
+                                <i class="fas fa-edit text-warning"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="font-weight-bold mr-2">
+                                <i class="far fa-trash-alt text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <!--end: Datatable-->
+    </div>
+</div>
+<!--end::Card-->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+}

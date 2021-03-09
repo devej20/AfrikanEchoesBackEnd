@@ -1,0 +1,76 @@
+svg {
+	display: block;
+	font: 80px 'Montserrat';
+	/*font:10.5em;*/
+	width: 960px;
+	height: 300px;
+	margin: 0 auto;
+}
+
+.text-copy {
+	fill: none;
+	stroke: white;
+	stroke-dasharray: 6% 29%;
+	stroke-width: 5px;
+	stroke-dashoffset: 0%;
+	animation: stroke-offset 5.5s infinite linear;
+}
+
+.text-copy:nth-child(1) {
+	stroke: red;
+	animation-delay: -1;
+}
+
+.text-copy:nth-child(2) {
+	stroke: gold;
+	animation-delay: -2s;
+}
+
+.text-copy:nth-child(3) {
+	stroke: green;
+	animation-delay: -3s;
+}
+
+.text-copy:nth-child(4) {
+	stroke: black;
+	animation-delay: -4s;
+}
+
+
+@keyframes stroke-offset {
+	100% {
+		stroke-dashoffset: -35%;
+	}
+}
+
+@media (max-width:768px) {
+	.s-text {
+
+		font-size: -20px;
+	}
+
+	.text-center {
+		padding-right: -100px;
+		margin-bottom: -70px;
+	}
+}
+
+
+@media (max-width:100px) {
+	.s-text {
+
+		font-size: -20px;
+	}
+
+	.text-center {
+		padding-right: -100px;
+		margin-bottom: -70px;
+	}
+}
+
+@media (max-width:600px) {
+	.s-text {
+		font-size: -20px;
+	}
+
+}

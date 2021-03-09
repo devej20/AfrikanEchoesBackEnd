@@ -1,0 +1,134 @@
+﻿@model AfrikanEchoes.ViewModels.Books.BookEditViewModel
+
+
+@{
+    ViewData["Title"] = "Edit";
+    var coverImagePath = "~/uploads/images/" + (@Model.ExistingCoverImage ?? "placeholder_image.png");
+    var audioPath = "";
+    var audio = @Model.Audio;
+
+    if (audio != null)
+    {
+        audioPath = "~/uploads/audios/" + (@audio.FilePath ?? "placeholder_audio.mp3");
+    }
+    else
+    {
+        audioPath = "~/uploads/audios/placeholder_audio.mp3";
+    }
+
+}
+
+
+
+<!--begin::Card-->
+<div class="card card-custom gutter-b example example-compact col-lg-6">
+    <div class="card-header">
+        <h3 class="card-title">Edit Book</h3>
+        <div class="card-toolbar">
+
+        </div>
+    </div>
+    <!--begin::Form-->
+    <form method="post" enctype="multipart/form-data" asp-action="edit" class="form">
+        <div class="card-body">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ExistingCoverImage" />
+            <div class="form-group m-form__group">
+                <img src="@Url.Content(coverImagePath)" width="200" />
+            </div>
+            <div class="form-group m-form__group">
+                <label asp-for="CoverImage" class="control-label">
+
+                </label>
+                <div></div>
+                <div class="custom-file">
+                    <input asp-for="CoverImage" type="file" class="form-control custom-file-input" id="image">
+                    <label class="custom-file-label" for="customFile">
+                        Change Cover Image
+                    </label>
+                </div>
+                <span asp-validation-for="CoverImage" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" type="date" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuthorId" class="control-label"></label>
+                <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
+                <span asp-validation-for="AuthorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NarratorId" class="control-label"></label>
+                <select asp-for="NarratorId" class="form-control" asp-items="ViewBag.NarratorId"></select>
+                <span asp-validation-for="NarratorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublisherId" class="control-label"></label>
+                <select asp-for="PublisherId" class="form-control" asp-items="ViewBag.PublisherId"></select>
+                <span asp-validation-for="PublisherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LanguageId" class="control-label"></label>
+                <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.LanguageId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AudioId" class="control-label"></label>
+                <select asp-for="AudioId" class="form-control" asp-items="ViewBag.AudioId"></select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
+<!--end::Card-->
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#cover_image').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+
+            $('#images').on("change", function () {
+                var fileLabel = $(this).next('.custom-file-label');
+                var files = $(this)[0].files;
+                if (files.length > 1) {
+                    fileLabel.html(files.length + ' files selected');
+                }
+                else if (files.length == 1) {
+                    fileLabel.html(files[0].name);
+                }
+            });
+        });
+    </script>
+}
